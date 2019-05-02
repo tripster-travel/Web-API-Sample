@@ -10,8 +10,6 @@ namespace Travel.App
     {
         public static void Register(HttpConfiguration config)
         {
-			// Web API configuration and services
-					
 			// remove xml so we only get json
 			config.Formatters.Remove(config.Formatters.XmlFormatter);
 
