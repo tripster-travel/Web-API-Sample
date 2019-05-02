@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.438
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travel.App", "Travel.App\Travel.App.csproj", "{1FF2847B-9594-4148-9337-7AA0EABBA7D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travel.Api", "Travel.Api\Travel.Api.csproj", "{0EFAE086-EE00-45E5-A563-DDA6D1B65545}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FF2847B-9594-4148-9337-7AA0EABBA7D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF2847B-9594-4148-9337-7AA0EABBA7D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF2847B-9594-4148-9337-7AA0EABBA7D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF2847B-9594-4148-9337-7AA0EABBA7D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EFAE086-EE00-45E5-A563-DDA6D1B65545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EFAE086-EE00-45E5-A563-DDA6D1B65545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EFAE086-EE00-45E5-A563-DDA6D1B65545}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EFAE086-EE00-45E5-A563-DDA6D1B65545}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7D31732-06DA-4975-940A-8CBCC125839A}
+	EndGlobalSection
+EndGlobal
