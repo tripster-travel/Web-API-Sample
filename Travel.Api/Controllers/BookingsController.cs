@@ -14,7 +14,6 @@ namespace Travel.Api.Models.Controllers
 	[RoutePrefix("api/example/v1/booking")]
 	public class ExampleBookiongsController : ApiController
 	{
-
 		/// <summary>
 		/// Create Boooking
 		/// </summary>

@@ -9,11 +9,9 @@ namespace Travel.Api.Models
 	public class AdmissionDate
 	{
 		public DateTime Date { get; set; }
+		public decimal Price { get; set; }
+		public decimal Savings { get; set; }
 		public bool Available { get; set; }
-		public TimeSpan? Open { get; set; }
-		public TimeSpan? Close { get; set; }
-		public decimal Rate { get; set; }
-		public decimal BaseRate { get; set; }
 		public List<AdmissionTime> Times { get; set; }
 
 		public AdmissionDate()

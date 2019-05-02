@@ -26,19 +26,28 @@ namespace Travel.Api
 
 			string scheme = "Token";
 			string parameter = null;
+			ClientAccess client = null;
 
 			if (request.Headers.Authorization != null)
 			{
 				scheme = request.Headers.Authorization.Scheme;
 				parameter = context.Request.Headers.Authorization.Parameter;
+
+				// look for client
+				if (!string.IsNullOrWhiteSpace(parameter))
+				{
+					client = TravelData.Current.ClientAccess.Find(x => x.AuthValue == parameter);
+				}
 			}
 			else
 			{
 				parameter = GetApiKey(context);
+				if (!string.IsNullOrWhiteSpace( parameter))
+				{
+					client = TravelData.Current.ClientAccess.Find(x => x.AuthType == AuthTypeEnum.Token && x.ApiKey != null && x.ApiKey == parameter);
+				}
 			}
-
-			// look for client
-			var client = TravelData.Current.ClientAccess.Find(x => x.AuthValue == parameter);
+			
 
 			// Check for client
 			if (client != null)

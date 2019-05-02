@@ -7,30 +7,28 @@ using Travel.Api.Models;
 
 namespace Travel.Api
 {
+	/// <summary>
+	/// Test Travel Data 
+	/// </summary>
 	public class TravelData
 	{
 		public static TravelData Current { get { return new TravelData(); } }
-
 		public List<ProductItem> Products { get; set; }
-
 		public List<ClientAccess> ClientAccess { get; set; }
 
 		public TravelData()
 		{
+			// access 
 			this.ClientAccess = new List<ClientAccess>()
 			{
-				new ClientAccess("	", ""),
-				new ClientAccess("", "")
+				new ClientAccess() { Username = "test", ApiKey = "C6DFA0B215B2CF24EF04794F718A3FC8", AuthType = AuthTypeEnum.Token, Roles = new List<string>() { "api.access" } }
 			};
 
+			// product data
 			this.Products = new List<ProductItem>()
 			{
-				new ProductItem()
-				{
-					Available = true,
-					Name = "Test",
-					Price = 100
-				}
+				new ProductItem()  { Available = true, Name = "Any Day Ticket", Price = 46.00m, Savings = 19.02m },
+				new ProductItem()  { Available = true, Name = "Two Day Ticket - Pay Once Visit Twice", Price = 56.81m, Savings = 9.19m }
 			};
 
 			foreach (var item in this.Products)
@@ -40,17 +38,11 @@ namespace Travel.Api
 					var date = new AdmissionDate()
 					{
 						Available = true,
-						Rate = 100,
+						Price = 45.98m,
 						Date = DateTime.Today.AddDays(i),
 						Times = new List<AdmissionTime> {
-							 new AdmissionTime(){
-								  Time = new TimeSpan(12, 30, 0),
-								  Available = true
-							 },
-							 new AdmissionTime(){
-								  Time = new TimeSpan(1, 00, 0),
-								  Available = true,
-							 }
+							new AdmissionTime() { Time = new TimeSpan(12, 00, 0),  Available = true, },
+							new AdmissionTime() { Time = new TimeSpan(16, 00, 0), Available = true   },
 						}
 					};
 				}
