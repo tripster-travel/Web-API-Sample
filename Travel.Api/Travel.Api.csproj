@@ -58,6 +58,8 @@
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AdmissionDate.cs" />
     <Compile Include="Models\AdmissionTime.cs" />
+    <Compile Include="Models\Booking.cs" />
+    <Compile Include="Models\BookingResponse.cs" />
     <Compile Include="Models\BookingRequest.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Customer.cs" />

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Travel.Api.Models
 {
-	public class BookingRequest
+	public class BookingResponse
 	{
 		public Booking Booking { get; set; }
-	}	
+	}
 }
 	
