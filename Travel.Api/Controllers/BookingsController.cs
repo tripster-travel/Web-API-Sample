@@ -20,8 +20,8 @@ namespace Travel.Api.Models.Controllers
 		/// <param name="request"></param>
 		/// <returns></returns>
 		[HttpPost, Route("create")]
-		//[TokenAuthentication()]
-		//[Authorize(Roles="api.access")]
+		[TokenAuthentication()]
+		[Authorize(Roles="api.access")]
 		public BookingResponse Create(BookingRequest request)
 		{
 			// crate booking
