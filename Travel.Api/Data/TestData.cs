@@ -9,13 +9,13 @@ namespace Travel.Api
 	/// <summary>
 	/// Test Travel Data 
 	/// </summary>
-	public class TravelData
+	public class TestData
 	{
-		public static TravelData Current { get { return new TravelData(); } }
+		public static TestData Current { get { return new TestData(); } }
 		public List<ProductItem> Products { get; set; }
 		public List<ClientAccess> ClientAccess { get; set; }
 
-		public TravelData()
+		public TestData()
 		{
 			// access 
 			this.ClientAccess = new List<ClientAccess>()

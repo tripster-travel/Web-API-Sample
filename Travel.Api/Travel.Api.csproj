@@ -54,7 +54,9 @@
     <Compile Include="Authentication\HttpRequestMessageExtensions.cs" />
     <Compile Include="Authentication\TokenAuthenticationAttribute.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Data\TestData.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AdmissionDate.cs" />
     <Compile Include="Models\AdmissionTime.cs" />
@@ -68,7 +70,6 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TravelData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

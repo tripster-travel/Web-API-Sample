@@ -17,8 +17,8 @@ namespace Travel.App
 				app.UseSwaggerUi3(typeof(WebApiApplication).Assembly, settings =>
 				{
 					settings.MiddlewareBasePath = "/swagger";
-					//settings.GeneratorSettings.DefaultUrlTemplate = "api/{controller}/{id}";  //this is the default one
-					settings.GeneratorSettings.DefaultUrlTemplate = "api/{controller}/{action}/{id}";
+					settings.GeneratorSettings.DefaultUrlTemplate = "api/{controller}/{id}";  //this is the default one
+					//settings.GeneratorSettings.DefaultUrlTemplate = "api/{controller}/{action}/{id}";
 				});
 			});
 

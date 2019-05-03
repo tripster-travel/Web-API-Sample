@@ -19,10 +19,13 @@ namespace Travel.Api.Models
 		public AuthTypeEnum AuthType { get; set; }
 
 		// auth 
-		public string AuthValue { get { return AuthType == AuthTypeEnum.Basic ? AuthBasic : AuthToken; } }
+		public string AuthValueEncoded { get { return CryptographyHelper.Base64Encode(this.AuthValue); } }
+		public string AuthValue { get { return AuthType == AuthTypeEnum.Basic ? _authBasic : _authToken; } }
+		
 		// login / password basic auth
-		private string AuthBasic { get { return CryptographyHelper.Base64Encode(this.Username + ":" + this.Password); } }
-		private string AuthToken { get { return this.ApiKey == null ? null : CryptographyHelper.Base64Encode(this.ApiKey); } }
+		private string _authBasic { get { return this.Username + ":" + this.Password; } }
+		private string _authToken { get { return this.ApiKey == null ? null : this.ApiKey; } }
+
 
 		public List<string> Roles { get; set; }
 

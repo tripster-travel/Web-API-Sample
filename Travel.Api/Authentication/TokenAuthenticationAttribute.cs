@@ -36,7 +36,7 @@ namespace Travel.Api
 				// look for client
 				if (!string.IsNullOrWhiteSpace(parameter))
 				{
-					client = TravelData.Current.ClientAccess.Find(x => x.AuthValue == parameter);
+					client = TestData.Current.ClientAccess.Find(x => x.AuthValueEncoded == parameter || x.AuthValue == parameter);
 				}
 			}
 			else
@@ -44,7 +44,7 @@ namespace Travel.Api
 				parameter = GetApiKey(context);
 				if (!string.IsNullOrWhiteSpace( parameter))
 				{
-					client = TravelData.Current.ClientAccess.Find(x => x.AuthType == AuthTypeEnum.Token && x.ApiKey != null && x.ApiKey == parameter);
+					client = TestData.Current.ClientAccess.Find(x => x.AuthType == AuthTypeEnum.Token && x.ApiKey != null && x.ApiKey == parameter);
 				}
 			}
 			
@@ -53,21 +53,12 @@ namespace Travel.Api
 			if (client != null)
 			{
 				string ip = request.GetClientIpAddress();
-
-				// Default roles
-				List<string> roles = new List<string>() { "api.access", "api.public.access" };
-				roles.AddRange(client.Roles);
-
-				// Create user / principal using roles
-				//var currentPrincipal = new GenericPrincipal(new GenericIdentity(client.ClientId), roles.ToArray());
-
-				string username = client.Username;
-
+				
 				// create identity for client
-				var identity = new CleintIdentity(username, scheme, client);
+				var identity = new CleintIdentity(client.Username, scheme, client);
 
 				// create principal with identity and roles
-				context.Principal = new GenericPrincipal(identity, roles.ToArray());
+				context.Principal = new GenericPrincipal(identity, client.Roles.ToArray());
 
 				return Task.FromResult(0);
 			}
@@ -89,42 +80,17 @@ namespace Travel.Api
 			get { return false; }
 		}
 
-		///// <summary>
-		///// Check Token Auth Header: https://tools.ietf.org/html/draft-hammer-http-token-auth-01
-		/////	Authorization: Token token="h480djs93hd8", coverage="base",	 timestamp="137131200",	 nonce="dj83hs9s", auth="djosJKDKJSD8743243/jdk33klY="
-		/////	Authorization: Token "h480djs93hd8"
-		///// </summary>
-		///// <param name="context"></param>
-		///// <returns></returns>
-		//public ClientAccess CheckTokenAuth(HttpAuthenticationContext context)
-		//{
-		//	var tokens = TravelData.Current.ClientAccess;
-		//	var authHeader = context.Request.Headers.Authorization.Parameter;
-
-		//	if (!string.IsNullOrEmpty(authHeader))
-		//	{
-		//		var autherizationHeaderArray = authHeader.Split(',');
-		//		if (autherizationHeaderArray.Any())
-		//		{
-		//			string token = null;
-
-		//			foreach (var item in autherizationHeaderArray)
-		//			{
-		//				token = item;
-		//			}
-
-		//			if (!string.IsNullOrWhiteSpace(token))
-		//			{
-		//				return tokens.Find(x => token.Equals(x.AuthToken, StringComparison.OrdinalIgnoreCase));
-		//			}
-		//		}
-		//	}
-		//	return null;
-		//}
-
 
 		public string GetApiKey(HttpAuthenticationContext context)
 		{
+			var headers = context.Request.Headers;
+
+			var test = headers.FirstOrDefault(x => x.Key == "api_key");
+			if (test.Value != null)
+			{
+				return test.Value.FirstOrDefault();
+			}
+
 			var list = context.Request.GetQueryNameValuePairs().ToList();
 			string token = null;
 			// look for api key
@@ -135,90 +101,6 @@ namespace Travel.Api
 			}
 			return token;
 		}
-
-
-		//public ClientAccess CheckTokenProperty(HttpAuthenticationContext context)
-		//{
-		//	var tokens = TravelData.Current.ClientAccess;
-
-		//	var list = context.Request.GetQueryNameValuePairs().ToList();
-
-		//	string token = null;
-
-		//	// look for api key
-		//	if (list.Any(x => string.Compare(x.Key, "api_key", true) == 0))
-		//	{
-		//		var obj = list.Find(x => string.Compare(x.Key, "api_key", true) == 0);
-		//		token = obj.Value;
-		//	}
-
-		//	if (!string.IsNullOrWhiteSpace(token))
-		//	{
-		//		return tokens.Find(x => token.Equals(x.ApiKey, StringComparison.OrdinalIgnoreCase));
-		//	}
-
-		//	return null;
-		//}
-
-		///// <summary>
-		///// Check Basic Auth Header
-		///// Authorization: Basic base64encodeed(login:password)
-		///// </summary>
-		///// <param name="context"></param>
-		///// <returns></returns>
-		//public ClientAccess CheckBasicAuth(HttpAuthenticationContext context)
-		//{
-		//	var authHeader = context.Request.Headers.Authorization.Parameter;
-
-		//	try
-		//	{
-		//		if (!string.IsNullOrWhiteSpace(authHeader))
-		//		{
-
-		//			string decodedString = Encoding.Default.GetString(Convert.FromBase64String(authHeader));
-
-		//			// decode base 64	
-		//			//string decodedString = Encoding.UTF8.GetString(Convert.FromBase64String(authHeader));
-
-		//			// split login & pass
-		//			string[] list = decodedString.Split(':');
-
-		//			if (list.Length == 1)
-		//			{
-		//				var tokens = TravelData.Current.ClientAccess;
-
-		//				string login = list[0];
-
-		//				Guid authToken;
-		//				if (Guid.TryParse(login, out authToken))
-		//				{
-		//					return tokens.Find(x => x.ClientToken == authToken);
-		//				}
-
-		//				// find matching token
-		//				//return tokens.Find(x => x.ClientId.Equals(login, StringComparison.OrdinalIgnoreCase));
-		//			}
-
-		//			if (list.Length == 2)
-		//			{
-		//				string login = list[0];
-		//				string password = list[1];
-
-		//				var tokens = TravelData.Current.ClientAccess;
-
-		//				// find matching token
-		//				return tokens.Find(x => x.ClientId.Equals(login, StringComparison.OrdinalIgnoreCase) && x.ClientSecret.Equals(password));
-		//			}
-
-		//		}
-		//	}
-		//	catch
-		//	{
-		//		return null;
-		//	}
-
-		//	return null;
-		//}
 	}
 
 	public class CleintIdentity : GenericIdentity
