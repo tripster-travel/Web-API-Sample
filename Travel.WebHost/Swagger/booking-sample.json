@@ -1,24 +1,24 @@
 {
-	"x-generator": "NSwag v12.2.4.0 (NJsonSchema v9.13.36.0 (Newtonsoft.Json v11.0.0.0))",
-	"swagger": "2.0",
-	"info": {
-		"title": "API Sample",
-		"version": "1.0.0"
-	},
-	"consumes": [
-		"application/json"
-	],
+  "x-generator": "NSwag v12.2.4.0 (NJsonSchema v9.13.36.0 (Newtonsoft.Json v11.0.0.0))",
+  "swagger": "2.0",
+  "info": {
+    "title": "API Sample",
+    "version": "1.0.0"
+  },
+  "consumes": [
+    "application/json"
+  ],
 	"produces": [
 		"application/json"
 	],
-	"paths": {
-		"/api/bookings": {
-			"post": {
-				"tags": [
-					"Bookings"
-				],
-				"operationId": "Bookings_Create",
-				"parameters": [
+  "paths": {
+    "/api/bookings": {
+      "post": {
+        "tags": [
+          "Bookings"
+        ],
+        "operationId": "Bookings_Create",
+        "parameters": [
 					{
 						"name": "api_key",
 						"in": "header",
@@ -34,25 +34,25 @@
 						},
 						"x-nullable": true
 					}
-				],
-				"responses": {
-					"200": {
-						"x-nullable": true,
-						"description": "",
-						"schema": {
-							"$ref": "#/definitions/BookingResponse"
-						}
-					}
-				}
-			}
-		},
-		"/api/bookings/{id}": {
-			"get": {
-				"tags": [
-					"Bookings"
-				],
-				"operationId": "Bookings_Detail",
-				"parameters": [
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BookingResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/bookings/{id}": {
+      "get": {
+        "tags": [
+          "Bookings"
+        ],
+        "operationId": "Bookings_Detail",
+        "parameters": [
 					{
 						"name": "api_key",
 						"in": "header",
@@ -66,25 +66,25 @@
 						"required": true,
 						"x-nullable": false
 					}
-				],
-				"responses": {
-					"200": {
-						"x-nullable": true,
-						"description": "",
-						"schema": {
-							"$ref": "#/definitions/BookingResponse"
-						}
-					}
-				}
-			}
-		},
-		"/api/bookings/{id}/cancel": {
-			"post": {
-				"tags": [
-					"Bookings"
-				],
-				"operationId": "Bookings_Cancel",
-				"parameters": [
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BookingResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/bookings/{id}/cancel": {
+      "post": {
+        "tags": [
+          "Bookings"
+        ],
+        "operationId": "Bookings_Cancel",
+        "parameters": [
 					{
 						"name": "api_key",
 						"in": "header",
@@ -98,306 +98,299 @@
 						"required": true,
 						"x-nullable": false
 					}
-				],
-				"responses": {
-					"200": {
-						"x-nullable": true,
-						"description": "",
-						"schema": {
-							"$ref": "#/definitions/BookingResponse"
-						}
-					}
-				}
-			}
-		},
-		"/api/products/list": {
-			"get": {
-				"tags": [
-					"Products"
-				],
-				"operationId": "Products_List",
-				"parameters": [
-				],
-				"responses": {
-					"200": {
-						"x-nullable": true,
-						"description": "",
-						"schema": {
-							"$ref": "#/definitions/ProductResponse"
-						}
-					}
-				}
-			}
-		}
-	},
-	"definitions": {
-		"BookingResponse": {
-			"type": "object",
-			"additionalProperties": false,
-			"properties": {
-				"booking": {
-					"$ref": "#/definitions/Booking"
-				}
-			}
-		},
-		"Booking": {
-			"type": "object",
-			"additionalProperties": false,
-			"required": [
-				"arrival",
-				"departure"
-			],
-			"properties": {
-				"status": {
-					"type": "string"
-				},
-				"orderId": {
-					"type": "string"
-				},
-				"arrival": {
-					"type": "string",
-					"format": "date-time"
-				},
-				"departure": {
-					"type": "string",
-					"format": "date-time"
-				},
-				"customer": {
-					"$ref": "#/definitions/Customer"
-				},
-				"items": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/Item"
-					}
-				},
-				"comments": {
-					"type": "string"
-				}
-			}
-		},
-		"Customer": {
-			"type": "object",
-			"additionalProperties": false,
-			"properties": {
-				"firstName": {
-					"type": "string"
-				},
-				"lastName": {
-					"type": "string"
-				},
-				"email": {
-					"type": "string"
-				},
-				"phone": {
-					"type": "string"
-				},
-				"address": {
-					"$ref": "#/definitions/Address"
-				}
-			}
-		},
-		"Address": {
-			"type": "object",
-			"additionalProperties": false,
-			"properties": {
-				"street": {
-					"type": "string"
-				},
-				"city": {
-					"type": "string"
-				},
-				"province": {
-					"type": "string"
-				},
-				"postalCode": {
-					"type": "string"
-				},
-				"country": {
-					"type": "string"
-				}
-			}
-		},
-		"Item": {
-			"type": "object",
-			"additionalProperties": false,
-			"required": [
-				"startTimeLocal",
-				"quantity",
-				"amount"
-			],
-			"properties": {
-				"productCode": {
-					"type": "string"
-				},
-				"startTimeLocal": {
-					"type": "string",
-					"format": "date-time"
-				},
-				"quantity": {
-					"type": "integer",
-					"format": "int32"
-				},
-				"amount": {
-					"type": "number",
-					"format": "decimal"
-				}
-			}
-		},
-		"BookingRequest": {
-			"type": "object",
-			"additionalProperties": false,
-			"properties": {
-				"booking": {
-					"$ref": "#/definitions/Booking"
-				}
-			}
-		},
-		"ProductResponse": {
-			"type": "object",
-			"additionalProperties": false,
-			"properties": {
-				"products": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/ProductItem"
-					}
-				}
-			}
-		},
-		"ProductItem": {
-			"type": "object",
-			"additionalProperties": false,
-			"required": [
-				"price",
-				"savings",
-				"available"
-			],
-			"properties": {
-				"productCode": {
-					"type": "string"
-				},
-				"name": {
-					"type": "string"
-				},
-				"description": {
-					"type": "string"
-				},
-				"price": {
-					"type": "number",
-					"format": "decimal"
-				},
-				"savings": {
-					"type": "number",
-					"format": "decimal"
-				},
-				"type": {
-					"type": "string"
-				},
-				"available": {
-					"type": "boolean"
-				},
-				"calendar": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/AdmissionDate"
-					}
-				},
-				"media": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/MediaObject"
-					}
-				}
-			}
-		},
-		"AdmissionDate": {
-			"type": "object",
-			"additionalProperties": false,
-			"required": [
-				"date",
-				"price",
-				"savings",
-				"available"
-			],
-			"properties": {
-				"date": {
-					"type": "string",
-					"format": "date-time"
-				},
-				"price": {
-					"type": "number",
-					"format": "decimal"
-				},
-				"savings": {
-					"type": "number",
-					"format": "decimal"
-				},
-				"available": {
-					"type": "boolean"
-				},
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BookingResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/products/list": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "operationId": "Products_List",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BookingResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "booking": {
+          "$ref": "#/definitions/Booking"
+        }
+      }
+    },
+    "Booking": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "arrival",
+        "departure"
+      ],
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "orderId": {
+          "type": "string"
+        },
+        "arrival": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "departure": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "customer": {
+          "$ref": "#/definitions/Customer"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        },
+        "comments": {
+          "type": "string"
+        }
+      }
+    },
+    "Customer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "address": {
+          "$ref": "#/definitions/Address"
+        }
+      }
+    },
+    "Address": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "street": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "province": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      }
+    },
+    "Item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "startTimeLocal",
+        "quantity",
+        "amount"
+      ],
+      "properties": {
+        "productCode": {
+          "type": "string"
+        },
+        "startTimeLocal": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amount": {
+          "type": "number",
+          "format": "decimal"
+        }
+      }
+    },
+    "BookingRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "booking": {
+          "$ref": "#/definitions/Booking"
+        }
+      }
+    },
+    "ProductResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductItem"
+          }
+        }
+      }
+    },
+    "ProductItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "price",
+        "savings",
+        "available"
+      ],
+      "properties": {
+        "productCode": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "savings": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "calendar": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdmissionDate"
+          }
+        },
+        "media": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MediaObject"
+          }
+        }
+      }
+    },
+    "AdmissionDate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "date",
+        "price",
+        "savings",
+        "available"
+      ],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "price": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "savings": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "available": {
+          "type": "boolean"
+        },
 				"times": {
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/AdmissionTime"
 					}
 				}
-			}
-		},
-		"AdmissionTime": {
-			"type": "object",
-			"additionalProperties": false,
-			"required": [
-				"time",
-				"available"
-			],
-			"properties": {
-				"time": {
-					"type": "string",
-					"format": "time-span"
-				},
-				"available": {
-					"type": "boolean"
-				},
-				"productUrl": {
-					"type": "string"
-				}
-			}
-		},
-		"MediaObject": {
-			"type": "object",
-			"additionalProperties": false,
-			"required": [
-				"mediaId",
-				"mediaType"
-			],
-			"properties": {
-				"mediaId": {
-					"type": "integer",
-					"format": "int32"
-				},
-				"title": {
-					"type": "string"
-				},
-				"url": {
-					"type": "string"
-				},
-				"mediaType": {
-					"$ref": "#/definitions/MediaType"
-				}
-			}
-		},
-		"MediaType": {
-			"type": "string",
-			"description": "",
-			"x-enumNames": [
-				"Image",
-				"Video"
-			],
-			"enum": [
-				"Image",
-				"Video"
-			]
-		}
-	}
+      }
+    },
+    "AdmissionTime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "available"
+      ],
+      "properties": {
+        "time": {
+          "type": "string",
+          "format": "time-span"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "productUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "MediaObject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mediaType"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "mediaType": {
+          "$ref": "#/definitions/MediaType"
+        }
+      }
+    },
+    "MediaType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Image",
+        "Video"
+      ],
+      "enum": [
+        "Image",
+        "Video"
+      ]
+    }
+  }
 }

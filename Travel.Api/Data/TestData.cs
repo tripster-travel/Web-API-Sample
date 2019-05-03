@@ -26,8 +26,8 @@ namespace Travel.Api
 			// product data
 			this.Products = new List<ProductItem>()
 			{
-				new ProductItem()  { Available = true, Name = "Any Day Ticket", Price = 46.00m, Savings = 19.02m },
-				new ProductItem()  { Available = true, Name = "Two Day Ticket - Pay Once Visit Twice", Price = 56.81m, Savings = 9.19m }
+				new ProductItem()  { ProductCode = "ANYDAY", Available = true, Name = "Any Day Ticket", Price = 46.00m, Savings = 19.02m },
+				new ProductItem()  { ProductCode = "2DAY", Available = true, Name = "Two Day Ticket - Pay Once Visit Twice", Price = 56.81m, Savings = 9.19m }
 			};
 
 			foreach (var item in this.Products)
