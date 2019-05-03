@@ -1,7 +1,7 @@
 ### Web API Sample
 
 - Travel.Api 
-  - Actual Web.Api code in class library (controllers, actions, models)
+  - Web.Api code in class library (controllers, actions, models)
 - Travel.WebHost
   - Web.Api Host with swagger test page
 - Test Authentication
