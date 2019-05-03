@@ -122,7 +122,7 @@ namespace Travel.Api
 
 	public class ResultWithChallenge : IHttpActionResult
 	{
-		private readonly string authenticationScheme = "Basic";
+		private readonly string authenticationScheme = "api_key";
 		private readonly IHttpActionResult next;
 
 		public ResultWithChallenge(IHttpActionResult next)

@@ -230,12 +230,6 @@
 				"productCode": {
 					"type": "string"
 				},
-				"rateId": {
-					"type": "string"
-				},
-				"eventId": {
-					"type": "string"
-				},
 				"startTimeLocal": {
 					"type": "string",
 					"format": "date-time"
@@ -275,15 +269,13 @@
 			"type": "object",
 			"additionalProperties": false,
 			"required": [
-				"id",
 				"price",
 				"savings",
 				"available"
 			],
 			"properties": {
-				"id": {
-					"type": "integer",
-					"format": "int32"
+				"productCode": {
+					"type": "string"
 				},
 				"name": {
 					"type": "string"

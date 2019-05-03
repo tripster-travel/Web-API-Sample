@@ -10,7 +10,6 @@ namespace Travel.Api.Models
 
 	public class MediaObject
 	{
-		public int MediaId { get; set; }
 		public string Title { get; set; }
 		public string Url { get; set; }
 		public MediaType MediaType { get; set; }

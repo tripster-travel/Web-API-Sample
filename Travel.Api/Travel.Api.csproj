@@ -55,7 +55,6 @@
     <Compile Include="Authentication\TokenAuthenticationAttribute.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Data\TestData.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AdmissionDate.cs" />
