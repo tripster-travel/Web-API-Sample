@@ -12,35 +12,20 @@
 		"application/json"
 	],
 	"paths": {
-		"/api/bookings": {
-			"post": {
+		"/api/products/list": {
+			"get": {
 				"tags": [
-					"Bookings"
+					"Products"
 				],
-				"operationId": "Bookings_Create",
+				"operationId": "Products_List",
 				"parameters": [
-					{
-						"name": "api_key",
-						"in": "header",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "request",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/BookingRequest"
-						},
-						"x-nullable": true
-					}
 				],
 				"responses": {
 					"200": {
 						"x-nullable": true,
 						"description": "",
 						"schema": {
-							"$ref": "#/definitions/BookingResponse"
+							"$ref": "#/definitions/ProductResponse"
 						}
 					}
 				}
@@ -78,6 +63,41 @@
 				}
 			}
 		},
+		"/api/bookings": {
+			"post": {
+				"tags": [
+					"Bookings"
+				],
+				"operationId": "Bookings_Create",
+				"parameters": [
+					{
+						"name": "api_key",
+						"in": "header",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/BookingRequest"
+						},
+						"x-nullable": true
+					}
+				],
+				"responses": {
+					"200": {
+						"x-nullable": true,
+						"description": "",
+						"schema": {
+							"$ref": "#/definitions/BookingResponse"
+						}
+					}
+				}
+			}
+		},
+
 		"/api/bookings/{id}/cancel": {
 			"post": {
 				"tags": [
@@ -109,26 +129,9 @@
 					}
 				}
 			}
-		},
-		"/api/products/list": {
-			"get": {
-				"tags": [
-					"Products"
-				],
-				"operationId": "Products_List",
-				"parameters": [
-				],
-				"responses": {
-					"200": {
-						"x-nullable": true,
-						"description": "",
-						"schema": {
-							"$ref": "#/definitions/ProductResponse"
-						}
-					}
-				}
-			}
 		}
+
+
 	},
 	"definitions": {
 		"BookingResponse": {
@@ -168,7 +171,7 @@
 				"items": {
 					"type": "array",
 					"items": {
-						"$ref": "#/definitions/Item"
+						"$ref": "#/definitions/BookingItem"
 					}
 				},
 				"comments": {
@@ -218,7 +221,7 @@
 				}
 			}
 		},
-		"Item": {
+		"BookingItem": {
 			"type": "object",
 			"additionalProperties": false,
 			"required": [
@@ -227,8 +230,9 @@
 				"amount"
 			],
 			"properties": {
-				"productCode": {
-					"type": "string"
+				"productNumber": {
+					"type": "integer",
+					"format": "int32"
 				},
 				"startTimeLocal": {
 					"type": "string",
@@ -241,9 +245,38 @@
 				"amount": {
 					"type": "number",
 					"format": "decimal"
+				},
+				"tickets": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Ticket"
+					}
+				}
+
+			}
+		},
+
+
+		"Ticket": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"ticketNumber": {
+					"type": "string"
+				},
+				"barcode": {
+					"type": "string"
+				},
+				"instructions": {
+					"type": "string"
+				},
+				"terms": {
+					"type": "string"
 				}
 			}
 		},
+
+
 		"BookingRequest": {
 			"type": "object",
 			"additionalProperties": false,
@@ -260,12 +293,12 @@
 				"products": {
 					"type": "array",
 					"items": {
-						"$ref": "#/definitions/ProductItem"
+						"$ref": "#/definitions/Product"
 					}
 				}
 			}
 		},
-		"ProductItem": {
+		"Product": {
 			"type": "object",
 			"additionalProperties": false,
 			"required": [
@@ -274,8 +307,9 @@
 				"available"
 			],
 			"properties": {
-				"productCode": {
-					"type": "string"
+				"productNumber": {
+					"type": "integer",
+					"format": "int32"
 				},
 				"name": {
 					"type": "string"
@@ -291,13 +325,10 @@
 					"type": "number",
 					"format": "decimal"
 				},
-				"type": {
-					"type": "string"
-				},
 				"available": {
 					"type": "boolean"
 				},
-				"calendar": {
+				"availability": {
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/AdmissionDate"

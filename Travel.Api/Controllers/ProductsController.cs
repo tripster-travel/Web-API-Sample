@@ -14,12 +14,19 @@ namespace Travel.Api.Models.Controllers
 	[RoutePrefix("api/products")]
 	public class ProductsController : ApiController
 	{
+
+		/// <summary>
+		/// Get Product List
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet, Route("list")]
 		public ProductResponse List()
 		{
-			var response = new ProductResponse();
-
-			response.Products = TestData.Current.Products;
+			// create response
+			var response = new ProductResponse()
+			{
+				Products = TestData.Current.Products
+			};
 
 			return response;
 		}

@@ -56,18 +56,9 @@
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Data\TestData.cs" />
-    <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\AdmissionDate.cs" />
-    <Compile Include="Models\AdmissionTime.cs" />
     <Compile Include="Models\Booking.cs" />
-    <Compile Include="Models\BookingResponse.cs" />
-    <Compile Include="Models\BookingRequest.cs" />
     <Compile Include="Models\Client.cs" />
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\Item.cs" />
-    <Compile Include="Models\MediaObject.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\ProductResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
