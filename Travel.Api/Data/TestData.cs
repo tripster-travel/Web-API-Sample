@@ -59,7 +59,8 @@ namespace Travel.Api
 				new Booking()
 				{
 					OrderId = "TEST-0000",
-					Customer = new Customer() { FirstName = "Test", LastName = "Customer"  },
+					Status = "Completed",
+					Customer = new Customer() { FirstName = "Test", LastName = "Customer", Email="test@tripster.com"  },
 					Items = new List<BookingItem>()
 					{
 						new BookingItem() { ProductNumber = 1001, Quantity = 1,

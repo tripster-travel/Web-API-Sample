@@ -16,13 +16,8 @@ namespace Travel.WebClient.Controllers
 		public async Task<ActionResult> Index()
         {
 			var model = new TravelModel();
-
-			var response = await api.ProductListAsync();
-			if (response != null)
-			{
-				model.Products = response;
-			}
-
+			model.Products = await api.ProductListAsync();
+			model.Bookings = await api.BookingsAsync();
 			return View(model);
         }
 
