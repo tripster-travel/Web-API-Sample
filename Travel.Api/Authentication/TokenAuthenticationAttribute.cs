@@ -12,10 +12,11 @@ using System.Web.Http;
 using System.Web.Http.Filters;
 using System.Web.Http.Results;
 using Travel.Api.Models;
-using Travel.Api.Shared;
 
 namespace Travel.Api
 {
+
+	/// Authenticate using api_key in header or query string
 	public class TokenAuthenticationAttribute : Attribute, IAuthenticationFilter
 	{
 		public TokenAuthenticationAttribute() { }
@@ -24,122 +25,60 @@ namespace Travel.Api
 		{
 			var request = context.Request;
 
-			string scheme = "Token";
-			string parameter = null;
-			ClientAccess client = null;
-
-			if (request.Headers.Authorization != null)
+			// look for token
+			var parameter = GetToken(context, "api_key");
+			if (!string.IsNullOrWhiteSpace(parameter))
 			{
-				scheme = request.Headers.Authorization.Scheme;
-				parameter = context.Request.Headers.Authorization.Parameter;
+				// find matching client
+				var client = TestData.Current.ClientAccess.Find(x => x.ApiKey == parameter);
 
-				// look for client
-				if (!string.IsNullOrWhiteSpace(parameter))
+				if (client != null)
 				{
-					client = TestData.Current.ClientAccess.Find(x => x.AuthValueEncoded == parameter || x.AuthValue == parameter);
+					// create identity for client
+					var identity = new CleintIdentity(client.Name, "Token", client);
+
+					// create principal with identity and roles
+					context.Principal = new GenericPrincipal(identity, client.Roles.ToArray());
+
+					return Task.FromResult(0);
 				}
-			}
-			else
-			{
-				parameter = GetApiKey(context);
-				if (!string.IsNullOrWhiteSpace( parameter))
-				{
-					client = TestData.Current.ClientAccess.Find(x => x.AuthType == AuthTypeEnum.Token && x.ApiKey != null && x.ApiKey == parameter);
-				}
-			}
-			
-
-			// Check for client
-			if (client != null)
-			{
-				string ip = request.GetClientIpAddress();
-				
-				// create identity for client
-				var identity = new CleintIdentity(client.Username, scheme, client);
-
-				// create principal with identity and roles
-				context.Principal = new GenericPrincipal(identity, client.Roles.ToArray());
-
-				return Task.FromResult(0);
 			}
 
 			// Not Authorized
 			context.ErrorResult = new UnauthorizedResult(new AuthenticationHeaderValue[0], context.Request);
-
 			return Task.FromResult(0);
+		}
+		
+
+		public string GetToken(HttpAuthenticationContext context, string key)
+		{
+			var headers = context.Request.Headers;
+
+			// get token from header
+			var header = headers.FirstOrDefault(x => x.Key == key);
+			if (header.Value != null)
+			{
+				return header.Value.FirstOrDefault();
+			}
+
+			// get token from request
+			var list = context.Request.GetQueryNameValuePairs().ToList();
+			string token = null;
+			if (list.Any(x => string.Compare(x.Key, key, true) == 0))
+			{
+				var obj = list.Find(x => string.Compare(x.Key, key, true) == 0);
+				token = obj.Value;
+			}
+
+			return token;
 		}
 
 		public Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)
 		{
-			context.Result = new ResultWithChallenge(context.Result);
+			//context.Result = new ResultWithChallenge(context.Result);
 			return Task.FromResult(0);
 		}
 
-		public bool AllowMultiple
-		{
-			get { return false; }
-		}
-
-
-		public string GetApiKey(HttpAuthenticationContext context)
-		{
-			var headers = context.Request.Headers;
-
-			var test = headers.FirstOrDefault(x => x.Key == "api_key");
-			if (test.Value != null)
-			{
-				return test.Value.FirstOrDefault();
-			}
-
-			var list = context.Request.GetQueryNameValuePairs().ToList();
-			string token = null;
-			// look for api key
-			if (list.Any(x => string.Compare(x.Key, "api_key", true) == 0))
-			{
-				var obj = list.Find(x => string.Compare(x.Key, "api_key", true) == 0);
-				token = obj.Value;
-			}
-			return token;
-		}
-	}
-
-	public class CleintIdentity : GenericIdentity
-	{
-		public ClientAccess Client { get; set; }
-
-		public CleintIdentity(string name, ClientAccess client)
-			: base(name)
-		{
-			Client = client;
-		}
-
-		public CleintIdentity(string name, string type, ClientAccess client)
-			: base(name, type)
-		{
-			Client = client;
-		}
-	}
-
-	public class ResultWithChallenge : IHttpActionResult
-	{
-		private readonly string authenticationScheme = "api_key";
-		private readonly IHttpActionResult next;
-
-		public ResultWithChallenge(IHttpActionResult next)
-		{
-			this.next = next;
-		}
-
-		public async Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
-		{
-			var response = await next.ExecuteAsync(cancellationToken);
-
-			if (response.StatusCode == HttpStatusCode.Unauthorized)
-			{
-				response.Headers.WwwAuthenticate.Add(new AuthenticationHeaderValue(authenticationScheme));
-			}
-
-			return response;
-		}
+		public bool AllowMultiple { get { return false; } }
 	}
 }

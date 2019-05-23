@@ -5,21 +5,49 @@ using Newtonsoft.Json;
 
 namespace Travel.Api.Models
 {
-	public class ProductItem
+	public class Product
 	{
-		public string ProductCode { get; set; }
+		public int ProductNumber { get; set; }
 		public string Name { get; set; }
 		public string Description { get; set; }
-		public string Type { get; set; }
 		public decimal Price { get; set; }
 		public decimal Savings { get; set; }
 		public bool Available { get; set; }
-		public List<AdmissionDate> Calendar { get; set; }
+		public List<AdmissionDate> Availability { get; set; }
 		public List<MediaObject> Media { get; set; }
 
-		public ProductItem()
+		public Product()
 		{
-			this.Calendar = new List<AdmissionDate>();
+			this.Availability = new List<AdmissionDate>();
+			this.Media = new List<MediaObject>();
+		}
+	}
+
+	public enum MediaType { Image, Video }
+
+	public class MediaObject
+	{
+		public string Title { get; set; }
+		public string Url { get; set; }
+		public MediaType MediaType { get; set; }
+		public MediaObject() { }
+	}
+
+	public class AdmissionDate
+	{
+		public DateTime Date { get; set; }
+		public decimal Price { get; set; }
+		public decimal Savings { get; set; }
+		public bool Available { get; set; }
+		public AdmissionDate() { }
+	}
+
+	public class ProductResponse
+	{
+		public List<Product> Products { get; set; }
+		public ProductResponse()
+		{
+			this.Products = new List<Product>();
 		}
 	}
 }
