@@ -19,7 +19,7 @@ namespace Travel.Api
 			// access 
 			this.ClientAccess = new List<ClientAccess>()
 			{
-				new ClientAccess() { Username = "test", ApiKey = "C6DFA0B215B2CF24EF04794F718A3FC8", AuthType = AuthTypeEnum.Token, Roles = new List<string>() { "api.access" } }
+				new ClientAccess() { Name = "TestClient", ApiKey = "C6DFA0B215B2CF24EF04794F718A3FC8", Roles = new List<string>() { "api.access" } }
 			};
 
 			// product data
@@ -73,8 +73,7 @@ namespace Travel.Api
 								}
 							}
 						}
-					},
-					Comments = "Test Order",
+					}
 				}
 			};
 		}

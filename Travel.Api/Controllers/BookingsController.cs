@@ -15,12 +15,12 @@ namespace Travel.Api.Models.Controllers
 	public class BookingsController : ApiController
 	{
 		/// Create Booking
-		[HttpPost, Route(""), TokenAuthentication(), Authorize(Roles="api.access")]
+		[HttpPost, Route(""), TokenAuthentication(), Authorize(Roles = "api.access")]
 		public BookingResponse Create(BookingRequest request)
 		{
 			// crate booking
 			var newBooking = request.Booking;
-			
+
 			// create tickets & barcodes
 			foreach (var item in newBooking.Items)
 			{
@@ -47,33 +47,36 @@ namespace Travel.Api.Models.Controllers
 		}
 
 		/// Cancel Booking
-		[HttpPost, Route("{id}/cancel"), TokenAuthentication(), Authorize(Roles = "api.access")]
-		public BookingResponse Cancel(string id)
+		[HttpPost, Route("{orderId}/cancel"), TokenAuthentication(), Authorize(Roles = "api.access")]
+		public BookingResponse Cancel(string orderId)
 		{
 			var response = new BookingResponse();
 
 			// find booking
-			response.Booking = TestData.Current.Bookings.Find(x => x.OrderId == id);
+			response.Booking = TestData.Current.Bookings.Find(x => x.OrderId == orderId);
 
-			// cancel booking
-			if (response.Booking != null)
-			{
-				response.Booking.Status = "Cancelled";
-			}
+			// return 404 if not found
+			if (response.Booking == null) throw new HttpResponseException(HttpStatusCode.NotFound);
+
+			// change booking status
+			response.Booking.Status = "Cancelled";
 
 			return response;
 		}
 
 		/// Get Booking
-		[HttpGet, Route("{id}"), TokenAuthentication(), Authorize(Roles = "api.access")]
-		public BookingResponse Detail(string id)
+		[HttpGet, Route("{orderId}"), TokenAuthentication(), Authorize(Roles = "api.access")]
+		public BookingResponse Detail(string orderId)
 		{
 			var response = new BookingResponse();
 
 			// find booking
-			response.Booking = TestData.Current.Bookings.Find(x => x.OrderId == id);
+			response.Booking = TestData.Current.Bookings.Find(x => x.OrderId == orderId);
+
+			// return 404 if not found
+			if (response.Booking == null) throw new HttpResponseException(HttpStatusCode.NotFound);
 
 			return response;
 		}
-	}		
+	}
 }

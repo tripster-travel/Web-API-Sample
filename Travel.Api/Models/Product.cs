@@ -13,7 +13,6 @@ namespace Travel.Api.Models
 		public decimal Price { get; set; }
 		public decimal Savings { get; set; }
 		public bool Available { get; set; }
-
 		public List<AdmissionDate> Availability { get; set; }
 		public List<MediaObject> Media { get; set; }
 

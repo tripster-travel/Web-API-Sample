@@ -104,6 +104,7 @@
     <Content Include="dist\swagger-ui.js.map" />
     <Content Include="Swagger\booking-sample.json" />
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\travel-web-api - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

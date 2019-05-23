@@ -50,8 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication\CryptographyHelper.cs" />
-    <Compile Include="Authentication\HttpRequestMessageExtensions.cs" />
     <Compile Include="Authentication\TokenAuthenticationAttribute.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />

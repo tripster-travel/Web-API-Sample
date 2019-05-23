@@ -3,7 +3,8 @@
 	"swagger": "2.0",
 	"info": {
 		"title": "API Sample",
-		"version": "1.0.0"
+		"version": "1.0.0",
+		"description": "Web API Booking Sample with token based autentication.	api_key = C6DFA0B215B2CF24EF04794F718A3FC8, OrderId = TEST-0000"
 	},
 	"consumes": [
 		"application/json"
@@ -14,9 +15,9 @@
 	"paths": {
 		"/api/products/list": {
 			"get": {
-				"tags": [
-					"Products"
-				],
+				"tags": [ "Products" ],
+				"summary": "Get Product List",
+				"description": "Return Complete Product List.",
 				"operationId": "Products_List",
 				"parameters": [
 				],
@@ -31,11 +32,11 @@
 				}
 			}
 		},
-		"/api/bookings/{id}": {
+		"/api/bookings/{orderId}": {
 			"get": {
-				"tags": [
-					"Bookings"
-				],
+				"tags": [ "Bookings" ],
+				"summary": "Get Booking by ID",
+				"description": "Get Booking by OrderId.",
 				"operationId": "Bookings_Detail",
 				"parameters": [
 					{
@@ -46,7 +47,7 @@
 					},
 					{
 						"type": "string",
-						"name": "id",
+						"name": "orderId",
 						"in": "path",
 						"required": true,
 						"x-nullable": false
@@ -65,9 +66,9 @@
 		},
 		"/api/bookings": {
 			"post": {
-				"tags": [
-					"Bookings"
-				],
+				"tags": [ "Bookings" ],
+				"summary": "Create Booking",
+				"description": "Create Booking.",
 				"operationId": "Bookings_Create",
 				"parameters": [
 					{
@@ -98,11 +99,11 @@
 			}
 		},
 
-		"/api/bookings/{id}/cancel": {
+		"/api/bookings/{orderId}/cancel": {
 			"post": {
-				"tags": [
-					"Bookings"
-				],
+				"tags": [ "Bookings" ],
+				"summary": "Cancel Booking",
+				"description": "Cancel Booking by ID.",
 				"operationId": "Bookings_Cancel",
 				"parameters": [
 					{
@@ -113,7 +114,7 @@
 					},
 					{
 						"type": "string",
-						"name": "id",
+						"name": "orderId",
 						"in": "path",
 						"required": true,
 						"x-nullable": false
@@ -146,24 +147,12 @@
 		"Booking": {
 			"type": "object",
 			"additionalProperties": false,
-			"required": [
-				"arrival",
-				"departure"
-			],
 			"properties": {
 				"status": {
 					"type": "string"
 				},
 				"orderId": {
 					"type": "string"
-				},
-				"arrival": {
-					"type": "string",
-					"format": "date-time"
-				},
-				"departure": {
-					"type": "string",
-					"format": "date-time"
 				},
 				"customer": {
 					"$ref": "#/definitions/Customer"
@@ -173,9 +162,6 @@
 					"items": {
 						"$ref": "#/definitions/BookingItem"
 					}
-				},
-				"comments": {
-					"type": "string"
 				}
 			}
 		},
@@ -183,40 +169,16 @@
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {
-				"firstName": {
-					"type": "string"
-				},
-				"lastName": {
-					"type": "string"
-				},
 				"email": {
 					"type": "string"
 				},
 				"phone": {
 					"type": "string"
 				},
-				"address": {
-					"$ref": "#/definitions/Address"
-				}
-			}
-		},
-		"Address": {
-			"type": "object",
-			"additionalProperties": false,
-			"properties": {
-				"street": {
+				"firstName": {
 					"type": "string"
 				},
-				"city": {
-					"type": "string"
-				},
-				"province": {
-					"type": "string"
-				},
-				"postalCode": {
-					"type": "string"
-				},
-				"country": {
+				"lastName": {
 					"type": "string"
 				}
 			}
@@ -225,26 +187,21 @@
 			"type": "object",
 			"additionalProperties": false,
 			"required": [
-				"startTimeLocal",
-				"quantity",
-				"amount"
+				"productNumber",
+				"quantity"
 			],
 			"properties": {
 				"productNumber": {
 					"type": "integer",
 					"format": "int32"
 				},
-				"startTimeLocal": {
-					"type": "string",
-					"format": "date-time"
-				},
 				"quantity": {
 					"type": "integer",
 					"format": "int32"
 				},
-				"amount": {
-					"type": "number",
-					"format": "decimal"
+				"useDate": {
+					"type": "string",
+					"format": "date-time"
 				},
 				"tickets": {
 					"type": "array",
