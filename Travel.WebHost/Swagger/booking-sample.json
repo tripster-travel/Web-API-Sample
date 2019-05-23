@@ -356,14 +356,9 @@
 			"type": "object",
 			"additionalProperties": false,
 			"required": [
-				"mediaId",
 				"mediaType"
 			],
 			"properties": {
-				"mediaId": {
-					"type": "integer",
-					"format": "int32"
-				},
 				"title": {
 					"type": "string"
 				},
