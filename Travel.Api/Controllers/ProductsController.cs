@@ -16,16 +16,33 @@ namespace Travel.Api.Models.Controllers
 	{
 
 		/// <summary>
-		/// Get Product List
+		/// Get All Products
 		/// </summary>
 		/// <returns></returns>
-		[HttpGet, Route("list")]
+		[HttpGet, Route("")]
 		public ProductResponse List()
 		{
 			// create response
 			var response = new ProductResponse()
 			{
 				Products = TestData.Current.Products
+			};
+
+			return response;
+		}
+
+		/// <summary>
+		/// Get Single Product
+		/// </summary>
+		/// <param name="productNumber"></param>
+		/// <returns></returns>
+		[HttpGet, Route("{productNumber}")]
+		public ProductResponse Detail(int productNumber)
+		{
+			// create response
+			var response = new ProductResponse()
+			{
+				Products = TestData.Current.Products.FindAll(x => x.ProductNumber == productNumber)
 			};
 
 			return response;

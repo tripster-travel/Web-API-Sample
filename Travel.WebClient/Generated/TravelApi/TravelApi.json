@@ -67,12 +67,6 @@
 				"operationId": "Bookings_Detail",
 				"parameters": [
 					{
-						"name": "api_key",
-						"in": "header",
-						"required": true,
-						"type": "string"
-					},
-					{
 						"type": "string",
 						"name": "orderId",
 						"in": "path",
@@ -98,12 +92,6 @@
 				"description": "Create Booking.",
 				"operationId": "Bookings_Create",
 				"parameters": [
-					{
-						"name": "api_key",
-						"in": "header",
-						"required": true,
-						"type": "string"
-					},
 					{
 						"name": "request",
 						"in": "body",
@@ -133,12 +121,6 @@
 				"description": "Cancel Booking by ID.",
 				"operationId": "Bookings_Cancel",
 				"parameters": [
-					{
-						"name": "api_key",
-						"in": "header",
-						"required": true,
-						"type": "string"
-					},
 					{
 						"type": "string",
 						"name": "orderId",

@@ -1,0 +1,41 @@
+﻿@model TravelModel
+
+@if (Model.Products.Any())
+{
+	var product = Model.Products.FirstOrDefault();
+
+
+	<div class="panel panel-default">
+		<div class="panel-heading">Product: @product.Name [@product.ProductNumber]</div>
+		<div class="panel-body">
+			<p>@product.Name @product.Price</p>
+			<p>@product.Description</p>
+			@foreach (var item in product.Media)
+			{
+				<img src="@item.Url" />
+			}
+		</div>
+		<div class="panel-footer">
+			<form class="form-inline" method="post" action="/home/booking">
+
+				<input type="hidden" name="productNumber" value="@product.ProductNumber" />
+
+				 <div class="form-group">
+					<label class="sr-only" for="quantity">Quantity</label>
+					<input type="text" class="form-control" id="Quantity" placeholder="Number of tickets" name="Quantity">
+				  </div>
+
+				  <div class="form-group">
+					<label class="sr-only" for="exampleInputEmail3">Email address</label>
+					<input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">
+				  </div>
+
+				  <button type="submit" class="btn btn-success">Create Booking</button>
+
+			</form>
+
+		</div>
+	
+	</div>
+}
+

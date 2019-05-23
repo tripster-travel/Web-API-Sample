@@ -1,0 +1,29 @@
+﻿@model BookingModel
+
+@if (Model.Booking != null)
+{
+
+	<div class="panel panel-default">
+		<div class="panel-heading">Booking: @Model.Booking.OrderId</div>
+		<div class="panel-body">
+			
+			<div>OrderId: @Model.Booking.OrderId</div>
+			<div>Status: @Model.Booking.Status</div>
+			<div>Email: @Model.Booking.Customer.Email</div>
+
+			@foreach (var item in Model.Booking.Items)
+			{	
+				<p>Barcode: @item.ProductNumber</p>
+				<p>Barcode: @item.Quantity</p>
+				foreach (var ticket in item.Tickets)
+				{
+					<p>Barcode: @ticket.Barcode</p>
+					<p>Instructions: @ticket.Instructions</p>
+					<p>Terms: @ticket.Terms</p>
+				}
+			}
+		</div>
+	
+	</div>
+}
+
