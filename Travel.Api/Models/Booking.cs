@@ -46,13 +46,13 @@ namespace Travel.Api.Models
 		public string LastName { get; set; }
 	}
 
-	public class BookingRequest
-	{
-		public Booking Booking { get; set; }
-	}
+	//public class BookingRequest
+	//{
+	//	public Booking Booking { get; set; }
+	//}
 
-	public class BookingResponse
-	{
-		public Booking Booking { get; set; }
-	}
+	//public class BookingResponse
+	//{
+	//	public Booking Booking { get; set; }
+	//}
 }

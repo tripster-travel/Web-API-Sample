@@ -42,12 +42,12 @@ namespace Travel.Api.Models
 		public AdmissionDate() { }
 	}
 
-	public class ProductResponse
-	{
-		public List<Product> Products { get; set; }
-		public ProductResponse()
-		{
-			this.Products = new List<Product>();
-		}
-	}
+	//public class ProductResponse
+	//{
+	//	public List<Product> Products { get; set; }
+	//	public ProductResponse()
+	//	{
+	//		this.Products = new List<Product>();
+	//	}
+	//}
 }

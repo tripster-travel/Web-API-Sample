@@ -26,7 +26,10 @@
 						"x-nullable": true,
 						"description": "",
 						"schema": {
-							"$ref": "#/definitions/ProductResponse"
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Product"
+							}
 						}
 					}
 				}
@@ -53,12 +56,16 @@
 						"x-nullable": true,
 						"description": "",
 						"schema": {
-							"$ref": "#/definitions/ProductResponse"
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Product"
+							}
 						}
 					}
 				}
 			}
 		},
+
 		"/api/bookings/{orderId}": {
 			"get": {
 				"tags": [ "Bookings" ],
@@ -85,13 +92,42 @@
 						"x-nullable": true,
 						"description": "",
 						"schema": {
-							"$ref": "#/definitions/BookingResponse"
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Booking"
+							}
 						}
 					}
 				}
 			}
 		},
 		"/api/bookings": {
+			"get": {
+				"tags": [ "Bookings" ],
+				"summary": "Get All Bookings",
+				"description": "Get All Booking",
+				"operationId": "Bookings",
+				"parameters": [
+					{
+						"name": "api_key",
+						"in": "header",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"x-nullable": true,
+						"description": "",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Booking"
+							}
+						}
+					}
+				}
+			},
 			"post": {
 				"tags": [ "Bookings" ],
 				"summary": "Create Booking",
@@ -109,7 +145,7 @@
 						"in": "body",
 						"required": true,
 						"schema": {
-							"$ref": "#/definitions/BookingRequest"
+							"$ref": "#/definitions/Booking"
 						},
 						"x-nullable": true
 					}
@@ -119,7 +155,10 @@
 						"x-nullable": true,
 						"description": "",
 						"schema": {
-							"$ref": "#/definitions/BookingResponse"
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Booking"
+							}
 						}
 					}
 				}
@@ -152,7 +191,10 @@
 						"x-nullable": true,
 						"description": "",
 						"schema": {
-							"$ref": "#/definitions/BookingResponse"
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Booking"
+							}
 						}
 					}
 				}
@@ -162,15 +204,6 @@
 
 	},
 	"definitions": {
-		"BookingResponse": {
-			"type": "object",
-			"additionalProperties": false,
-			"properties": {
-				"booking": {
-					"$ref": "#/definitions/Booking"
-				}
-			}
-		},
 		"Booking": {
 			"type": "object",
 			"additionalProperties": false,
@@ -260,28 +293,6 @@
 			}
 		},
 
-
-		"BookingRequest": {
-			"type": "object",
-			"additionalProperties": false,
-			"properties": {
-				"booking": {
-					"$ref": "#/definitions/Booking"
-				}
-			}
-		},
-		"ProductResponse": {
-			"type": "object",
-			"additionalProperties": false,
-			"properties": {
-				"products": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/Product"
-					}
-				}
-			}
-		},
 		"Product": {
 			"type": "object",
 			"additionalProperties": false,

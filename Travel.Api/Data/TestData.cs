@@ -19,7 +19,8 @@ namespace Travel.Api
 			// access 
 			this.ClientAccess = new List<ClientAccess>()
 			{
-				new ClientAccess() { Name = "TestClient", ApiKey = "C6DFA0B215B2CF24EF04794F718A3FC8", Roles = new List<string>() { "api.access" } }
+				new ClientAccess() { Name = "ReadOnlyClient",	ApiKey = "C6DFA0B215B2CF24EF04794F718A3FC8", Roles = new List<string>() { "api.access" } },
+				new ClientAccess() { Name = "UpdateClient",		ApiKey = "F47978ABEE234A628B77FDE182EA2038", Roles = new List<string>() { "api.access", "api.update" } }
 			};
 
 			// product data

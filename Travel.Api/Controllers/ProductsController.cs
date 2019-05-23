@@ -20,15 +20,12 @@ namespace Travel.Api.Models.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet, Route("")]
-		public ProductResponse List()
+		public List<Product> List()
 		{
 			// create response
-			var response = new ProductResponse()
-			{
-				Products = TestData.Current.Products
-			};
+			var products = TestData.Current.Products;
 
-			return response;
+			return products;
 		}
 
 		/// <summary>
@@ -37,15 +34,12 @@ namespace Travel.Api.Models.Controllers
 		/// <param name="productNumber"></param>
 		/// <returns></returns>
 		[HttpGet, Route("{productNumber}")]
-		public ProductResponse Detail(int productNumber)
+		public List<Product> Detail(int productNumber)
 		{
 			// create response
-			var response = new ProductResponse()
-			{
-				Products = TestData.Current.Products.FindAll(x => x.ProductNumber == productNumber)
-			};
+			var products = TestData.Current.Products.FindAll(x => x.ProductNumber == productNumber);
 
-			return response;
+			return products;
 		}
 	}		
 }

@@ -20,7 +20,7 @@ namespace Travel.WebClient.Controllers
 			var response = await api.ProductListAsync();
 			if (response != null)
 			{
-				model.Products = response.Products;
+				model.Products = response;
 			}
 
 			return View(model);
@@ -34,7 +34,7 @@ namespace Travel.WebClient.Controllers
 
 			if (response != null)
 			{
-				model.Products = response.Products;
+				model.Products = response;
 			}
 
 			return View(model);
@@ -49,7 +49,7 @@ namespace Travel.WebClient.Controllers
 
 			if (response != null)
 			{
-				model.Booking = response.Booking;
+				model.Booking = response.FirstOrDefault();
 			}
 
 			return View(model);
@@ -58,10 +58,8 @@ namespace Travel.WebClient.Controllers
 		[HttpPost]
 		public async Task<ActionResult> Booking(BookingModel model)
 		{
-			BookingRequest request = new BookingRequest();
-
 			// Create new booking request
-			request.Booking = new Booking()
+			var booking = new Booking()
 			{
 				Customer = new Customer() { Email = model.Email },
 				Items = new List<BookingItem>()
@@ -75,11 +73,11 @@ namespace Travel.WebClient.Controllers
 			};
 
 			// create booking
-			var response = await api.Bookings_CreateAsync(request);
+			var response = await api.Bookings_CreateAsync(booking);
 
 			if (response != null)
 			{
-				model.Booking = response.Booking;
+				model.Booking = response.FirstOrDefault();
 			}
 
 			return View(model);

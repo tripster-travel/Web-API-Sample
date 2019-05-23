@@ -15,12 +15,9 @@ namespace Travel.Api.Models.Controllers
 	public class BookingsController : ApiController
 	{
 		/// Create Booking
-		[HttpPost, Route(""), TokenAuthentication(), Authorize(Roles = "api.access")]
-		public BookingResponse Create(BookingRequest request)
+		[HttpPost, Route(""), TokenAuthentication(), Authorize(Roles = "api.update")]
+		public List<Booking> Create(Booking newBooking)
 		{
-			// crate booking
-			var newBooking = request.Booking;
-
 			// create tickets & barcodes
 			foreach (var item in newBooking.Items)
 			{
@@ -38,45 +35,51 @@ namespace Travel.Api.Models.Controllers
 			}
 			newBooking.Status = "Completed";
 			newBooking.OrderId = string.Format("TEST-{0:0000}", TestData.Current.Bookings.Count + 1);
+
+			// add new booking
 			TestData.Current.Bookings.Add(newBooking);
-
-			// create response
-			var response = new BookingResponse() { Booking = newBooking };
-
-			return response;
+									
+			return new List<Booking>() { newBooking };
 		}
 
 		/// Cancel Booking
-		[HttpPost, Route("{orderId}/cancel"), TokenAuthentication(), Authorize(Roles = "api.access")]
-		public BookingResponse Cancel(string orderId)
+		[HttpPost, Route("{orderId}/cancel"), TokenAuthentication(), Authorize(Roles = "api.update")]
+		public List<Booking> Cancel(string orderId)
 		{
-			var response = new BookingResponse();
-
 			// find booking
-			response.Booking = TestData.Current.Bookings.Find(x => x.OrderId == orderId);
+			var booking = TestData.Current.Bookings.Find(x => x.OrderId == orderId);
 
 			// return 404 if not found
-			if (response.Booking == null) throw new HttpResponseException(HttpStatusCode.NotFound);
+			if (booking == null) throw new HttpResponseException(HttpStatusCode.NotFound);
 
 			// change booking status
-			response.Booking.Status = "Cancelled";
+			booking.Status = "Cancelled";
 
-			return response;
+			return new List<Booking>() { booking };
 		}
 
 		/// Get Booking
 		[HttpGet, Route("{orderId}"), TokenAuthentication(), Authorize(Roles = "api.access")]
-		public BookingResponse Detail(string orderId)
+		public List<Booking> Detail(string orderId)
 		{
-			var response = new BookingResponse();
-
 			// find booking
-			response.Booking = TestData.Current.Bookings.Find(x => x.OrderId == orderId);
+			var  booking = TestData.Current.Bookings.Find(x => x.OrderId == orderId);
 
 			// return 404 if not found
-			if (response.Booking == null) throw new HttpResponseException(HttpStatusCode.NotFound);
+			if (booking == null) throw new HttpResponseException(HttpStatusCode.NotFound);
 
-			return response;
+			return new List<Booking>() { booking };
+		}
+
+		/// Get All Bookings
+		[HttpGet, Route(""), TokenAuthentication(), Authorize(Roles = "api.access")]
+		public List<Booking> List()
+		{
+			// find booking
+			var list = TestData.Current.Bookings;
+
+			return list;
 		}
 	}
 }
+

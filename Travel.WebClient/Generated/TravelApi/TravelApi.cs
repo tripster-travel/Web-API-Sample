@@ -41,7 +41,7 @@ namespace Travel.WebClient
     
         /// <summary>Get Product List</summary>
         /// <exception cref="TravelApixception">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<ProductResponse> ProductListAsync()
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Product>> ProductListAsync()
         {
             return ProductListAsync(System.Threading.CancellationToken.None);
         }
@@ -49,7 +49,7 @@ namespace Travel.WebClient
         /// <summary>Get Product List</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="TravelApixception">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<ProductResponse> ProductListAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.List<Product>> ProductListAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl).Append("/api/products");
@@ -80,10 +80,10 @@ namespace Travel.WebClient
                         if (status_ == "200") 
                         {
                             var responseData_ = await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
-                            var result_ = default(ProductResponse); 
+                            var result_ = default(System.Collections.Generic.List<Product>); 
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<ProductResponse>(responseData_, _settings.Value);
+                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.List<Product>>(responseData_, _settings.Value);
                                 return result_; 
                             } 
                             catch (System.Exception exception) 
@@ -98,7 +98,7 @@ namespace Travel.WebClient
                             throw new TravelApixception("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", status_, responseData_, headers_, null);
                         }
             
-                        return default(ProductResponse);
+                        return default(System.Collections.Generic.List<Product>);
                     }
                     finally
                     {
@@ -114,7 +114,7 @@ namespace Travel.WebClient
     
         /// <summary>Get Product</summary>
         /// <exception cref="TravelApixception">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<ProductResponse> ProductDetailAsync(int productNumber)
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Product>> ProductDetailAsync(int productNumber)
         {
             return ProductDetailAsync(productNumber, System.Threading.CancellationToken.None);
         }
@@ -122,7 +122,7 @@ namespace Travel.WebClient
         /// <summary>Get Product</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="TravelApixception">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<ProductResponse> ProductDetailAsync(int productNumber, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.List<Product>> ProductDetailAsync(int productNumber, System.Threading.CancellationToken cancellationToken)
         {
             if (productNumber == null)
                 throw new System.ArgumentNullException("productNumber");
@@ -157,10 +157,10 @@ namespace Travel.WebClient
                         if (status_ == "200") 
                         {
                             var responseData_ = await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
-                            var result_ = default(ProductResponse); 
+                            var result_ = default(System.Collections.Generic.List<Product>); 
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<ProductResponse>(responseData_, _settings.Value);
+                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.List<Product>>(responseData_, _settings.Value);
                                 return result_; 
                             } 
                             catch (System.Exception exception) 
@@ -175,7 +175,7 @@ namespace Travel.WebClient
                             throw new TravelApixception("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", status_, responseData_, headers_, null);
                         }
             
-                        return default(ProductResponse);
+                        return default(System.Collections.Generic.List<Product>);
                     }
                     finally
                     {
@@ -191,7 +191,7 @@ namespace Travel.WebClient
     
         /// <summary>Get Booking by ID</summary>
         /// <exception cref="TravelApixception">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<BookingResponse> Bookings_DetailAsync(string orderId)
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Booking>> Bookings_DetailAsync(string orderId)
         {
             return Bookings_DetailAsync(orderId, System.Threading.CancellationToken.None);
         }
@@ -199,7 +199,7 @@ namespace Travel.WebClient
         /// <summary>Get Booking by ID</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="TravelApixception">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<BookingResponse> Bookings_DetailAsync(string orderId, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.List<Booking>> Bookings_DetailAsync(string orderId, System.Threading.CancellationToken cancellationToken)
         {
             if (orderId == null)
                 throw new System.ArgumentNullException("orderId");
@@ -234,10 +234,10 @@ namespace Travel.WebClient
                         if (status_ == "200") 
                         {
                             var responseData_ = await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
-                            var result_ = default(BookingResponse); 
+                            var result_ = default(System.Collections.Generic.List<Booking>); 
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<BookingResponse>(responseData_, _settings.Value);
+                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.List<Booking>>(responseData_, _settings.Value);
                                 return result_; 
                             } 
                             catch (System.Exception exception) 
@@ -252,7 +252,80 @@ namespace Travel.WebClient
                             throw new TravelApixception("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", status_, responseData_, headers_, null);
                         }
             
-                        return default(BookingResponse);
+                        return default(System.Collections.Generic.List<Booking>);
+                    }
+                    finally
+                    {
+                        if (response_ != null)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+            }
+        }
+    
+        /// <summary>Get All Bookings</summary>
+        /// <exception cref="TravelApixception">A server side error occurred.</exception>
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Booking>> BookingsAsync()
+        {
+            return BookingsAsync(System.Threading.CancellationToken.None);
+        }
+    
+        /// <summary>Get All Bookings</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="TravelApixception">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task<System.Collections.Generic.List<Booking>> BookingsAsync(System.Threading.CancellationToken cancellationToken)
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl).Append("/api/bookings");
+    
+            var client_ = _httpClient;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+    
+                    PrepareRequest(client_, request_, urlBuilder_);
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client_, request_, url_);
+    
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        foreach (var item_ in response_.Content.Headers)
+                            headers_[item_.Key] = item_.Value;
+    
+                        ProcessResponse(client_, response_);
+    
+                        var status_ = ((int)response_.StatusCode).ToString();
+                        if (status_ == "200") 
+                        {
+                            var responseData_ = await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                            var result_ = default(System.Collections.Generic.List<Booking>); 
+                            try
+                            {
+                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.List<Booking>>(responseData_, _settings.Value);
+                                return result_; 
+                            } 
+                            catch (System.Exception exception) 
+                            {
+                                throw new TravelApixception("Could not deserialize the response body.", status_, responseData_, headers_, exception);
+                            }
+                        }
+                        else
+                        if (status_ != "200" && status_ != "204")
+                        {
+                            var responseData_ = await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                            throw new TravelApixception("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", status_, responseData_, headers_, null);
+                        }
+            
+                        return default(System.Collections.Generic.List<Booking>);
                     }
                     finally
                     {
@@ -268,7 +341,7 @@ namespace Travel.WebClient
     
         /// <summary>Create Booking</summary>
         /// <exception cref="TravelApixception">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<BookingResponse> Bookings_CreateAsync(BookingRequest request)
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Booking>> Bookings_CreateAsync(Booking request)
         {
             return Bookings_CreateAsync(request, System.Threading.CancellationToken.None);
         }
@@ -276,7 +349,7 @@ namespace Travel.WebClient
         /// <summary>Create Booking</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="TravelApixception">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<BookingResponse> Bookings_CreateAsync(BookingRequest request, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.List<Booking>> Bookings_CreateAsync(Booking request, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl).Append("/api/bookings");
@@ -310,10 +383,10 @@ namespace Travel.WebClient
                         if (status_ == "200") 
                         {
                             var responseData_ = await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
-                            var result_ = default(BookingResponse); 
+                            var result_ = default(System.Collections.Generic.List<Booking>); 
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<BookingResponse>(responseData_, _settings.Value);
+                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.List<Booking>>(responseData_, _settings.Value);
                                 return result_; 
                             } 
                             catch (System.Exception exception) 
@@ -328,7 +401,7 @@ namespace Travel.WebClient
                             throw new TravelApixception("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", status_, responseData_, headers_, null);
                         }
             
-                        return default(BookingResponse);
+                        return default(System.Collections.Generic.List<Booking>);
                     }
                     finally
                     {
@@ -344,7 +417,7 @@ namespace Travel.WebClient
     
         /// <summary>Cancel Booking</summary>
         /// <exception cref="TravelApixception">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<BookingResponse> Bookings_CancelAsync(string orderId)
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Booking>> Bookings_CancelAsync(string orderId)
         {
             return Bookings_CancelAsync(orderId, System.Threading.CancellationToken.None);
         }
@@ -352,7 +425,7 @@ namespace Travel.WebClient
         /// <summary>Cancel Booking</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="TravelApixception">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<BookingResponse> Bookings_CancelAsync(string orderId, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.List<Booking>> Bookings_CancelAsync(string orderId, System.Threading.CancellationToken cancellationToken)
         {
             if (orderId == null)
                 throw new System.ArgumentNullException("orderId");
@@ -389,10 +462,10 @@ namespace Travel.WebClient
                         if (status_ == "200") 
                         {
                             var responseData_ = await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
-                            var result_ = default(BookingResponse); 
+                            var result_ = default(System.Collections.Generic.List<Booking>); 
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<BookingResponse>(responseData_, _settings.Value);
+                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.List<Booking>>(responseData_, _settings.Value);
                                 return result_; 
                             } 
                             catch (System.Exception exception) 
@@ -407,7 +480,7 @@ namespace Travel.WebClient
                             throw new TravelApixception("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", status_, responseData_, headers_, null);
                         }
             
-                        return default(BookingResponse);
+                        return default(System.Collections.Generic.List<Booking>);
                     }
                     finally
                     {
@@ -425,23 +498,6 @@ namespace Travel.WebClient
     
     
 
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.4.10.0")]
-    public partial class BookingResponse 
-    {
-        [Newtonsoft.Json.JsonProperty("booking", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Booking Booking { get; set; }
-    
-        public string ToJson() 
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-        
-        public static BookingResponse FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<BookingResponse>(data);
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.4.10.0")]
     public partial class Booking 
     {
@@ -543,40 +599,6 @@ namespace Travel.WebClient
         public static Ticket FromJson(string data)
         {
             return Newtonsoft.Json.JsonConvert.DeserializeObject<Ticket>(data);
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.4.10.0")]
-    public partial class BookingRequest 
-    {
-        [Newtonsoft.Json.JsonProperty("booking", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Booking Booking { get; set; }
-    
-        public string ToJson() 
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-        
-        public static BookingRequest FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<BookingRequest>(data);
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.4.10.0")]
-    public partial class ProductResponse 
-    {
-        [Newtonsoft.Json.JsonProperty("products", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.List<Product> Products { get; set; }
-    
-        public string ToJson() 
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-        
-        public static ProductResponse FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<ProductResponse>(data);
         }
     }
     
