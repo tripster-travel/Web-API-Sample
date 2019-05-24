@@ -164,7 +164,7 @@
     <Error Condition="!Exists('..\packages\NSwag.MSBuild.11.5.1.3\build\NSwag.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NSwag.MSBuild.11.5.1.3\build\NSwag.MSBuild.props'))" />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>if $(ConfigurationName) == Debug "$(NSwagExe)" swagger2csclient /classname:TravelApi /namespace:Travel.WebClient /classstyle:Poco /arrayType:System.Collections.Generic.List /injectHttpClient:true /generateExceptionClasses:false /OperationGenerationMode:SingleClientFromOperationId /exceptionClass:TravelApixception /input:"$(ProjectDir)Generated\TravelApi\TravelApi.json" /output:"$(ProjectDir)Generated\TravelApi\TravelApi.cs"</PreBuildEvent>
+    <PreBuildEvent>REM if $(ConfigurationName) == Debug "$(NSwagExe)" swagger2csclient /classname:TravelApi /namespace:Travel.WebClient /classstyle:Poco /arrayType:System.Collections.Generic.List /injectHttpClient:true /generateExceptionClasses:false /OperationGenerationMode:SingleClientFromOperationId /exceptionClass:TravelApixception /input:"$(ProjectDir)Generated\TravelApi\TravelApi.json" /output:"$(ProjectDir)Generated\TravelApi\TravelApi.cs"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
